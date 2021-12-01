@@ -21,31 +21,13 @@ def measureSingleDepths():
 
 def measuerDepthsWithSlidingWindows():
     depths = load()
-    expectedGroupCount = len(depths) / 3
     
-    # Group depths
-    currentGroup = []
-    groups = []
-    groupSize = 3
-    for depth in depths:
-        number = int(depth)
-        currentGroup.append(number)
-        if len(currentGroup) == groupSize:
-            print(currentGroup)
-            groups.append(currentGroup)
-            currentGroup = []
-
-    if len(groups) == expectedGroupCount: print('Separated groups correctly!')
-    else: print('Something went wrong [{} != {}]'.format(len(groups), expectedGroupCount))
-
-    # Find sum for each group 
     sums = []
-    for group in groups:
-        groupSum = 0
-        for num in group: groupSum += num
-        # print('Sum for group {} is {}'.format(group, groupSum))
-        sums.append(groupSum)
-        
+    for index in range(len(depths)):
+        if index + 2 < len(depths):
+            sum = int(depths[index]) + int(depths[index + 1]) + int(depths[index + 2])
+            sums.append(sum)
+            
     # Compare each summed depth
     currentSum = 0
     increaseCount = 0
